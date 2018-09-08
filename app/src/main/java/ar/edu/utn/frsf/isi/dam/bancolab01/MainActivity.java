@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private ToggleButton togAcreditar;
     private CheckBox chkTerminos;
     private Button btnHacerPF;
-    private EditText edtMensaje;
+    private TextView edtMensaje;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +73,8 @@ public class MainActivity extends AppCompatActivity {
         togAcreditar= (ToggleButton) findViewById(R.id.togAcreditar);
         chkTerminos= (CheckBox) findViewById(R.id.chkTerminos);
         btnHacerPF= (Button) findViewById(R.id.btnHacerPF);
-        edtMensaje= (EditText) findViewById(R.id.edtMensaje);
+        edtMensaje= (TextView) findViewById(R.id.edtMensaje);
 
-        edtMonto.setText(Integer.toString(10));
         optDolar.setActivated(false);
         optPeso.setActivated(true);
         swAvisarMail.setActivated(false);
@@ -88,10 +87,11 @@ public class MainActivity extends AppCompatActivity {
         seekDias.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tvDiasSelec.setText(progress + "dias de plazo");
+                tvDiasSelec.setText(progress + " dias de plazo");
                 pf.setDias(progress);
+                pf.setMonto(Double.parseDouble(edtMonto.getText().toString()));
                 Double intereses=pf.intereses();
-                pf.setMonto(pf.getMonto()+pf.getMonto()*intereses);
+                pf.setMonto(pf.getMonto()+intereses);
                 tvRendimiento.setText(pf.getMonto().toString());
             }
 
@@ -128,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
                 String mensaje="campo Mail no debe estar vacio\n el CUIT/CUIL no debe estar vacio\n" +
                         "el monto debe ser mayor a 0\n la cantidad de dias debe ser mayor a 10";
                 if(edtMail.getText().toString().isEmpty() || edtCuit.toString().isEmpty() ||
-                        Double.parseDouble(edtMonto.getText().toString())>0.0 || seekDias.getProgress()>10){
-                    Toast.makeText(getApplicationContext(),mensajeToast,Toast.LENGTH_SHORT);
+                        Double.parseDouble(edtMonto.getText().toString())<0.0 || seekDias.getProgress()<=10){
+                    Toast.makeText(getApplicationContext(),mensajeToast,Toast.LENGTH_SHORT).show();
                     edtMensaje.setText(mensaje);
                 }
                 else{

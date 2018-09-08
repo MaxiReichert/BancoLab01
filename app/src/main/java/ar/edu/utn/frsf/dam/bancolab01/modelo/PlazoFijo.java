@@ -101,7 +101,7 @@ public class PlazoFijo {
     }
 
     public Double intereses(){
-        Double interes= monto*(Math.pow(1+tasa()/100.0, dias/360)-1);
+        Double interes= monto*(Math.pow(1.0+tasa()/100.0, dias/360.0)-1.0);
         return interes;
     }
 }
