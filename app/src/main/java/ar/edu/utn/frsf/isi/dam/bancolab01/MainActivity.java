@@ -130,9 +130,11 @@ public class MainActivity extends AppCompatActivity {
                 if(edtMail.getText().toString().isEmpty() || edtCuit.toString().isEmpty() ||
                         Double.parseDouble(edtMonto.getText().toString())<0.0 || seekDias.getProgress()<=10){
                     Toast.makeText(getApplicationContext(),mensajeToast,Toast.LENGTH_SHORT).show();
+                    edtMensaje.setTextColor(edtMensaje.getContext().getResources().getColor(R.color.Rojo));
                     edtMensaje.setText(mensaje);
                 }
                 else{
+                    edtMensaje.setTextColor(edtMensaje.getContext().getResources().getColor(R.color.Azul));
                     edtMensaje.setText(pf.toString());
                 }
             }
